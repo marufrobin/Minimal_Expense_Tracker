@@ -27,6 +27,8 @@ class ExpanseDatabase {
   ///
   Future<void> createExpanse(Expanse expanse) async {
     await isar.writeTxn(() => isar.expanses.put(expanse));
+
+    await readExpanse();
   }
 
   /// Read -- Read a [Expanse] objects
@@ -43,9 +45,14 @@ class ExpanseDatabase {
   Future<void> updateExpanse(int id, Expanse updatedExpanse) async {
     updatedExpanse.id = id;
     await isar.writeTxn(() async => await isar.expanses.put(updatedExpanse));
+    await readExpanse();
   }
 
   /// Delete -- Delete an [Expanse] object
+  Future<void> deleteExpanse(int id) async {
+    await isar.writeTxn(() async => await isar.expanses.delete(id));
+    await readExpanse();
+  }
 
   /*
    * H E L P E R S
