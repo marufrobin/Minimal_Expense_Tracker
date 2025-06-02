@@ -6,6 +6,11 @@ class ExpenseRepository {
 
   ExpenseRepository(this.expanseDatabase);
 
+  Future<List<Expanse>> getAllExpenses() async {
+    await expanseDatabase.readExpanse();
+    return expanseDatabase.allExpanses;
+  }
+
   Future<void> createExpense(Expanse expanse) async {
     await expanseDatabase.createExpanse(expanse);
   }
