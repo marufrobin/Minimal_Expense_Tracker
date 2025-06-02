@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:minimal_expense_tracker/screens/home/home.screen.dart';
 import 'package:minimal_expense_tracker/themes/app_theme.dart';
 
-void main() {
+import 'database/expanse_database.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await ExpanseDatabase().initialize();
+
   runApp(const MyApp());
 }
 
