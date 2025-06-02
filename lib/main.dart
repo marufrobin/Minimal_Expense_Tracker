@@ -28,10 +28,12 @@ class RootApp extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Minimal Expense Tracker')),
       body: const Center(child: Text('Hello World!')),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        tooltip: 'Add expense',
+        isExtended: true,
+        label: const Text('Add expense'),
+        icon: Icon(Icons.add),
       ),
     );
   }
