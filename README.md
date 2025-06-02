@@ -90,6 +90,76 @@ Widget build(BuildContext context) {
 }
 ```
 
+### 🧱 Widget Structure
+
+```dart
+ExpanseChartScreen()
+```
+
+* Displays a bar chart with 10 data points (example values: 10, 20, ..., 100).
+* X-axis represents **days of the week** (Sun to Sat).
+* Y-axis represents **expense amounts**.
+* Customizable border colors based on current app theme.
+* No grid lines for a clean, minimalist appearance.
+
+---
+
+### 🗂️ File: `expanse_chart_screen.dart`
+
+#### Key Features:
+
+* **Dynamic data mapping**:
+
+  ```dart
+  List<BarChartGroupData> _barChartDataBuilder(List<BarChartDataModel> data)
+  ```
+
+* **Custom X-axis labels**:
+
+  ```dart
+  String daysName(int days)
+  ```
+
+* **Minimal border rendering**:
+
+  ```dart
+  FlBorderData _borderDesign(ThemeData theme)
+  ```
+
+---
+
+### 🧪 Example Use:
+
+```dart
+import 'path/to/expanse_chart_screen.dart';
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Weekly Expenses")),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ExpanseChartScreen(),
+      ),
+    );
+  }
+}
+```
+
+---
+
+### 📌 Customization Tips:
+
+* Change chart data dynamically by injecting a list of `BarChartDataModel`.
+* Theme-aware colors make it compatible with light/dark modes.
+* Can extend to show monthly data or user interactions.
+
+---
+
+Let me know if you want me to include screenshots, dynamic chart data from BLoC, or localization support in the README!
+
+
 ### ✅ To Do (for future improvements)
 
 * Add axis titles and labels.
