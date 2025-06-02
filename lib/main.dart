@@ -32,11 +32,16 @@ class MyApp extends StatelessWidget {
             create: (context) => ExpanseBloc(context.read<ExpenseRepository>()),
           ),
         ],
-        child: MaterialApp(
-          title: 'Minimal Expense Tracker',
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-          home: HomeScreens(),
+        child: BlocBuilder<ThemeChangeCubit, ThemeMode>(
+          builder: (context, state) {
+            return MaterialApp(
+              title: 'Minimal Expense Tracker',
+              theme: AppTheme.lightTheme,
+              darkTheme: AppTheme.darkTheme,
+              themeMode: state,
+              home: HomeScreens(),
+            );
+          },
         ),
       ),
     );
