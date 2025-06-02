@@ -155,10 +155,8 @@ class _ExpenseModalSheetState extends State<ExpenseModalSheet> {
                     widget.initialTitle != null
                         ? 'Edit Expense'
                         : 'Add New Expense',
-                    style: const TextStyle(
-                      fontSize: 24,
+                    style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
                     ),
                   ),
                   IconButton(
