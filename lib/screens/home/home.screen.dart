@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minimal_expense_tracker/screens/add_expense/add_expanse.screen.dart';
 import 'package:minimal_expense_tracker/screens/expanse_chart/expanse_chart.screen.dart';
+import 'package:minimal_expense_tracker/screens/expanse_list/expanse_list.widget.dart';
 
 import '../../themes/change_theme.widget.dart';
 
@@ -15,9 +16,12 @@ class HomeScreens extends StatelessWidget {
         title: const Text('Minimal Expense Tracker'),
         actions: [ChangeThemeWidget(), SizedBox(width: 10)],
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Column(children: [ExpanseChartScreen()]),
+      body: Column(
+        children: [
+          ExpanseChartScreen(),
+          Expanded(child: ExpanseListWidget()),
+          SizedBox(height: 60),
+        ],
       ),
       floatingActionButton: AddExpanseScreens(),
     );
