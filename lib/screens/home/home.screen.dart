@@ -17,6 +17,7 @@ class HomeScreens extends StatelessWidget {
         actions: [ChangeThemeWidget(), SizedBox(width: 10)],
       ),
       body: Column(
+        spacing: 16,
         children: [
           ExpanseChartScreen(),
           Expanded(child: ExpanseListWidget()),
