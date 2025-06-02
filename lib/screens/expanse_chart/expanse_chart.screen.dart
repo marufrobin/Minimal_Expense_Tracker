@@ -35,7 +35,7 @@ class ExpanseChartScreen extends StatelessWidget {
     final double barWidth = 28;
     final double barsSpace = 16;
     return SizedBox(
-      height: 400,
+      height: 300,
       width: width,
       // width: (barWidth * data.length) + (barsSpace * (data.length - 1)),
       child: BarChart(
