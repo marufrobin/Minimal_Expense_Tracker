@@ -10,7 +10,10 @@ class HomeScreens extends StatelessWidget {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Minimal Expense Tracker')),
-      body: Column(children: [ExpanseChartScreen()]),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(children: [ExpanseChartScreen()]),
+      ),
       floatingActionButton: AddExpanseScreens(),
     );
   }

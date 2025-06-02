@@ -17,16 +17,35 @@ class ExpanseChartScreen extends StatelessWidget {
       BarChartDataModel(x: 4, y: 50),
       BarChartDataModel(x: 5, y: 60),
       BarChartDataModel(x: 6, y: 70),
-      BarChartDataModel(x: 7, y: 80),
-      BarChartDataModel(x: 8, y: 90),
-      BarChartDataModel(x: 9, y: 100),
+      // BarChartDataModel(x: 7, y: 80),
+      // BarChartDataModel(x: 8, y: 90),
+      // BarChartDataModel(x: 9, y: 100),
+      // BarChartDataModel(x: 9, y: 100),
+      // BarChartDataModel(x: 8, y: 90),
+      // BarChartDataModel(x: 7, y: 80),
+      // BarChartDataModel(x: 6, y: 70),
+      // BarChartDataModel(x: 5, y: 60),
+      // BarChartDataModel(x: 4, y: 50),
+      // BarChartDataModel(x: 3, y: 40),
+      // BarChartDataModel(x: 2, y: 30),
+      // BarChartDataModel(x: 1, y: 20),
+      // BarChartDataModel(x: 0, y: 10),
     ];
+
+    final double barWidth = 28;
+    final double barsSpace = 16;
     return SizedBox(
       height: 400,
       width: width,
+      // width: (barWidth * data.length) + (barsSpace * (data.length - 1)),
       child: BarChart(
         BarChartData(
-          barGroups: _barChartDataBuilder(data: data, theme: theme),
+          barGroups: _barChartDataBuilder(
+            data: data,
+            theme: theme,
+            barsSpace: barsSpace,
+            barWidth: barWidth,
+          ),
           borderData: _borderDesign(theme),
           titlesData: _charBorderDataLabel(),
 
@@ -41,17 +60,25 @@ class ExpanseChartScreen extends StatelessWidget {
   List<BarChartGroupData> _barChartDataBuilder({
     required List<BarChartDataModel> data,
     required ThemeData theme,
+    required double barWidth,
+    required double barsSpace,
   }) {
     return List.generate(data.length, (index) {
       final singleData = data[index];
       return BarChartGroupData(
         x: singleData.x ?? 0,
+        barsSpace: barsSpace,
         barRods: [
           BarChartRodData(
             toY: singleData.y ?? 0,
             borderRadius: BorderRadius.circular(4),
-            width: 20,
+            width: barWidth,
             color: theme.colorScheme.primary,
+            backDrawRodData: BackgroundBarChartRodData(
+              color: Colors.grey.shade300,
+              show: true,
+              toY: 100,
+            ),
           ),
         ],
       );
