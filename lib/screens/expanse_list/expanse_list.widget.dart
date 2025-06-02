@@ -17,24 +17,22 @@ class ExpanseListWidget extends StatelessWidget {
           itemCount: state is ExpenseLoaded ? state.expenses.length : 1,
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            if (state is ExpenseLoaded) {
+            if (state is ExpenseLoaded || state is ExpenseOperationSuccess) {
+              final expenses = state is ExpenseLoaded
+                  ? state.expenses
+                  : (state as ExpenseOperationSuccess).expenses;
+
               return _body(
                 color: color,
-                id: state.expenses[index].id,
-                title: state.expenses[index].name,
-                trailing: state.expenses[index].amount?.toString(),
+                id: expenses[index].id,
+                title: expenses[index].name,
+                trailing: expenses[index].amount?.toString(),
+                theme: theme,
               );
             } else if (state is ExpenseLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is ExpenseError) {
               return const Center(child: Text('Error'));
-            } else if (state is ExpenseOperationSuccess) {
-              return _body(
-                color: color,
-                id: state.expenses[index].id,
-                title: state.message,
-                trailing: state.expenses[index].amount?.toString(),
-              );
             } else {
               return const Center(child: Text('No data'));
             }
@@ -49,6 +47,7 @@ class ExpanseListWidget extends StatelessWidget {
     required int id,
     required String? title,
     required String? trailing,
+    required ThemeData theme,
   }) {
     return Slidable(
       endActionPane: ActionPane(
@@ -73,8 +72,13 @@ class ExpanseListWidget extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        title: Text(title ?? "No data"),
-        trailing: Text(trailing ?? "No data"),
+        title: Text(title ?? "No data", style: theme.textTheme.titleMedium),
+        trailing: Text(
+          "\$${trailing ?? "No data"}",
+          style: theme.textTheme.titleSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
