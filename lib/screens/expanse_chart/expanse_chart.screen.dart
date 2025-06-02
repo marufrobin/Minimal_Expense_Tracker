@@ -22,18 +22,52 @@ class ExpanseChartScreen extends StatelessWidget {
       BarChartDataModel(x: 9, y: 100),
     ];
     return SizedBox(
-      height: 300,
+      height: 400,
       width: width,
       child: BarChart(
         BarChartData(
-          barGroups: List.generate(data.length, (index) {
-            final singleData = data[index];
-            return BarChartGroupData(
-              x: singleData.x ?? 0,
-              barRods: [BarChartRodData(toY: singleData.y ?? 0)],
-            );
-          }),
+          barGroups: _barChartDataBuilder(data),
+          borderData: _borderDesign(theme),
+          titlesData: _charBorderDataLabel(),
+
+          /// Hides the chart background grid lines.
+          gridData: FlGridData(show: false),
         ),
+      ),
+    );
+  }
+
+  /// [BarChartGroupData] builder for the chart
+  List<BarChartGroupData> _barChartDataBuilder(List<BarChartDataModel> data) {
+    return List.generate(data.length, (index) {
+      final singleData = data[index];
+      return BarChartGroupData(
+        x: singleData.x ?? 0,
+        barRods: [BarChartRodData(toY: singleData.y ?? 0)],
+      );
+    });
+  }
+
+  FlTitlesData _charBorderDataLabel() {
+    return FlTitlesData(
+      bottomTitles: AxisTitles(
+        sideTitles: SideTitles(
+          getTitlesWidget: (value, meta) =>
+              Text(BarChartDataModel().daysName(value.toInt())),
+          showTitles: true,
+        ),
+      ),
+      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+    );
+  }
+
+  /// [Chart_Border] design for the chart
+  FlBorderData _borderDesign(ThemeData theme) {
+    return FlBorderData(
+      border: Border(
+        left: BorderSide(color: theme.dividerColor),
+        bottom: BorderSide(color: theme.dividerColor),
       ),
     );
   }
@@ -44,4 +78,25 @@ class BarChartDataModel {
   final double? y;
 
   BarChartDataModel({this.x, this.y});
+
+  String daysName(int days) {
+    switch (days % 7) {
+      case 0:
+        return 'Sun';
+      case 1:
+        return 'Mon';
+      case 2:
+        return 'Tue';
+      case 3:
+        return 'Wed';
+      case 4:
+        return 'Thu';
+      case 5:
+        return 'Fri';
+      case 6:
+        return 'Sat';
+      default:
+        return '';
+    }
+  }
 }

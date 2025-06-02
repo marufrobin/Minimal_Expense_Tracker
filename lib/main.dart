@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Minimal Expense Tracker',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       home: HomeScreens(),
