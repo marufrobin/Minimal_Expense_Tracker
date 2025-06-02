@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:minimal_expense_tracker/screens/add_expense/add_expanse.screens.dart';
+import 'package:minimal_expense_tracker/screens/add_expense/add_expanse.screen.dart';
 
 class HomeScreens extends StatelessWidget {
   const HomeScreens({super.key});

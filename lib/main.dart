@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:minimal_expense_tracker/screens/home/home.screens.dart';
+import 'package:minimal_expense_tracker/screens/home/home.screen.dart';
 import 'package:minimal_expense_tracker/themes/app_theme.dart';
 
 void main() {
