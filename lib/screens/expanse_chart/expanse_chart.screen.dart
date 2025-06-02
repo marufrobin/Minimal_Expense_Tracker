@@ -26,7 +26,7 @@ class ExpanseChartScreen extends StatelessWidget {
       width: width,
       child: BarChart(
         BarChartData(
-          barGroups: _barChartDataBuilder(data),
+          barGroups: _barChartDataBuilder(data: data, theme: theme),
           borderData: _borderDesign(theme),
           titlesData: _charBorderDataLabel(),
 
@@ -38,12 +38,22 @@ class ExpanseChartScreen extends StatelessWidget {
   }
 
   /// [BarChartGroupData] builder for the chart
-  List<BarChartGroupData> _barChartDataBuilder(List<BarChartDataModel> data) {
+  List<BarChartGroupData> _barChartDataBuilder({
+    required List<BarChartDataModel> data,
+    required ThemeData theme,
+  }) {
     return List.generate(data.length, (index) {
       final singleData = data[index];
       return BarChartGroupData(
         x: singleData.x ?? 0,
-        barRods: [BarChartRodData(toY: singleData.y ?? 0)],
+        barRods: [
+          BarChartRodData(
+            toY: singleData.y ?? 0,
+            borderRadius: BorderRadius.circular(4),
+            width: 20,
+            color: theme.colorScheme.primary,
+          ),
+        ],
       );
     });
   }
