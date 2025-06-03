@@ -20,7 +20,7 @@ const ExpanseSchema = CollectionSchema(
     r'amount': PropertySchema(
       id: 0,
       name: r'amount',
-      type: IsarType.long,
+      type: IsarType.double,
     ),
     r'createdAt': PropertySchema(
       id: 1,
@@ -79,7 +79,7 @@ void _expanseSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.amount);
+  writer.writeDouble(offsets[0], object.amount);
   writer.writeDateTime(offsets[1], object.createdAt);
   writer.writeString(offsets[2], object.dayName);
   writer.writeString(offsets[3], object.name);
@@ -92,7 +92,7 @@ Expanse _expanseDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Expanse(
-    amount: reader.readLongOrNull(offsets[0]),
+    amount: reader.readDoubleOrNull(offsets[0]),
     dayName: reader.readStringOrNull(offsets[2]),
     name: reader.readStringOrNull(offsets[3]),
   );
@@ -109,7 +109,7 @@ P _expanseDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 1:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 2:
@@ -227,46 +227,54 @@ extension ExpanseQueryFilter
   }
 
   QueryBuilder<Expanse, Expanse, QAfterFilterCondition> amountEqualTo(
-      int? value) {
+    double? value, {
+    double epsilon = Query.epsilon,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'amount',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Expanse, Expanse, QAfterFilterCondition> amountGreaterThan(
-    int? value, {
+    double? value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'amount',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Expanse, Expanse, QAfterFilterCondition> amountLessThan(
-    int? value, {
+    double? value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'amount',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Expanse, Expanse, QAfterFilterCondition> amountBetween(
-    int? lower,
-    int? upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -275,6 +283,7 @@ extension ExpanseQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        epsilon: epsilon,
       ));
     });
   }
@@ -849,7 +858,7 @@ extension ExpanseQueryProperty
     });
   }
 
-  QueryBuilder<Expanse, int?, QQueryOperations> amountProperty() {
+  QueryBuilder<Expanse, double?, QQueryOperations> amountProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'amount');
     });

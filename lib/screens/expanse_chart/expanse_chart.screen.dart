@@ -162,19 +162,33 @@ class BarChartDataModel {
   /// returns int from day name
   int daysNumber(String day) {
     switch (day) {
-      case 'Sun':
+      case 'sun':
         return 0;
-      case 'Mon':
+      case 'mon':
         return 1;
-      case 'Tue':
+      case 'tue':
         return 2;
-      case 'Wed':
+      case 'wed':
         return 3;
-      case 'Thu':
+      case 'thu':
         return 4;
-      case 'Fri':
+      case 'fri':
         return 5;
-      case 'Sat':
+      case 'sat':
+        return 6;
+      case 'sunday':
+        return 0;
+      case 'monday':
+        return 1;
+      case 'tuesday':
+        return 2;
+      case 'wednesday':
+        return 3;
+      case 'thursday':
+        return 4;
+      case 'friday':
+        return 5;
+      case 'saturday':
         return 6;
       default:
         return 0;

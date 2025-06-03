@@ -7,7 +7,7 @@ part 'expanse.model.g.dart';
 class Expanse {
   Id id = Isar.autoIncrement;
   String? name;
-  int? amount;
+  double? amount;
   DateTime? createdAt;
   String? dayName;
 

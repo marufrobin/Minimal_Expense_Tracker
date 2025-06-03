@@ -25,7 +25,8 @@ class ExpanseListWidget extends StatelessWidget {
                 color: color,
                 id: expenses[index].id,
                 title: expenses[index].name,
-                trailing: expenses[index].amount?.toString(),
+                trailing: expenses[index].amount?.toDouble().toStringAsFixed(1),
+                subtitle: expenses[index].dayName,
                 theme: theme,
               );
             } else if (state is ExpenseLoading) {
@@ -45,6 +46,7 @@ class ExpanseListWidget extends StatelessWidget {
     required ColorScheme color,
     required int id,
     required String? title,
+    required String? subtitle,
     required String? trailing,
     required ThemeData theme,
   }) {
@@ -71,7 +73,15 @@ class ExpanseListWidget extends StatelessWidget {
         ],
       ),
       child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: color.primary,
+          child: Text(
+            id.toString(),
+            style: TextStyle(color: color.onPrimary, fontSize: 20),
+          ),
+        ),
         title: Text(title ?? "No data", style: theme.textTheme.titleMedium),
+        subtitle: Text(subtitle ?? "No data", style: theme.textTheme.bodySmall),
         trailing: Text(
           "\$${trailing ?? "No data"}",
           style: theme.textTheme.titleSmall?.copyWith(

@@ -20,7 +20,7 @@ class AddExpanseScreens extends StatelessWidget {
             // You can integrate with your BLoC here:
             context.read<ExpanseBloc>().add(
               CreateExpenseEvent(
-                Expanse(name: title, amount: amount.toInt(), dayName: day),
+                Expanse(name: title, amount: amount, dayName: day),
               ),
             );
 
