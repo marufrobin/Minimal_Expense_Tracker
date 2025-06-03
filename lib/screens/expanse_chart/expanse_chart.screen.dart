@@ -1,5 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../bloc/expanse_bloc/expanse_bloc.dart';
 
 class ExpanseChartScreen extends StatelessWidget {
   const ExpanseChartScreen({super.key});
@@ -9,49 +12,68 @@ class ExpanseChartScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final List<BarChartDataModel> data = [
-      BarChartDataModel(x: 0, y: 10),
-      BarChartDataModel(x: 1, y: 20),
-      BarChartDataModel(x: 2, y: 30),
-      BarChartDataModel(x: 3, y: 40),
-      BarChartDataModel(x: 4, y: 50),
-      BarChartDataModel(x: 5, y: 60),
-      BarChartDataModel(x: 6, y: 70),
-      // BarChartDataModel(x: 7, y: 80),
-      // BarChartDataModel(x: 8, y: 90),
-      // BarChartDataModel(x: 9, y: 100),
-      // BarChartDataModel(x: 9, y: 100),
-      // BarChartDataModel(x: 8, y: 90),
-      // BarChartDataModel(x: 7, y: 80),
-      // BarChartDataModel(x: 6, y: 70),
-      // BarChartDataModel(x: 5, y: 60),
-      // BarChartDataModel(x: 4, y: 50),
-      // BarChartDataModel(x: 3, y: 40),
-      // BarChartDataModel(x: 2, y: 30),
-      // BarChartDataModel(x: 1, y: 20),
-      // BarChartDataModel(x: 0, y: 10),
-    ];
+    // final List<BarChartDataModel> data = [
+    //   BarChartDataModel(x: 0, y: 10),
+    //   BarChartDataModel(x: 1, y: 20),
+    //   BarChartDataModel(x: 2, y: 30),
+    //   BarChartDataModel(x: 3, y: 40),
+    //   BarChartDataModel(x: 4, y: 50),
+    //   BarChartDataModel(x: 5, y: 60),
+    //   BarChartDataModel(x: 6, y: 70),
+    //   // BarChartDataModel(x: 7, y: 80),
+    //   // BarChartDataModel(x: 8, y: 90),
+    //   // BarChartDataModel(x: 9, y: 100),
+    //   // BarChartDataModel(x: 9, y: 100),
+    //   // BarChartDataModel(x: 8, y: 90),
+    //   // BarChartDataModel(x: 7, y: 80),
+    //   // BarChartDataModel(x: 6, y: 70),
+    //   // BarChartDataModel(x: 5, y: 60),
+    //   // BarChartDataModel(x: 4, y: 50),
+    //   // BarChartDataModel(x: 3, y: 40),
+    //   // BarChartDataModel(x: 2, y: 30),
+    //   // BarChartDataModel(x: 1, y: 20),
+    //   // BarChartDataModel(x: 0, y: 10),
+    // ];
 
     final double barWidth = 28;
     final double barsSpace = 16;
     return SizedBox(
       height: 300,
       width: width,
-      // width: (barWidth * data.length) + (barsSpace * (data.length - 1)),
-      child: BarChart(
-        BarChartData(
-          barGroups: _barChartDataBuilder(
-            data: data,
-            theme: theme,
-            barsSpace: barsSpace,
-            barWidth: barWidth,
-          ),
-          borderData: _borderDesign(theme),
-          titlesData: _charBorderDataLabel(),
+      child: BlocBuilder<ExpanseBloc, ExpanseState>(
+        builder: (context, state) {
+          if (state is ExpenseLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is ExpenseError) {
+            return const Center(child: Text('Error'));
+          } else if (state is ExpenseLoaded) {
+            final data = state.expenses
+                .map(
+                  (e) => BarChartDataModel(
+                    x: BarChartDataModel().daysNumber(e.dayName ?? ''),
+                    y: e.amount?.toDouble(),
+                  ),
+                )
+                .toList();
+            return BarChart(
+              BarChartData(
+                barGroups: _barChartDataBuilder(
+                  data: data,
+                  theme: theme,
+                  barsSpace: barsSpace,
+                  barWidth: barWidth,
+                ),
+                borderData: _borderDesign(theme),
+                titlesData: _charBorderDataLabel(),
 
-          /// Hides the chart background grid lines.
-          gridData: FlGridData(show: false),
-        ),
+                /// Hides the chart background grid lines.
+                gridData: FlGridData(show: false),
+              ),
+            );
+          } else {
+            return const Center(child: Text('No data'));
+          }
+        },
       ),
     );
   }
@@ -134,6 +156,28 @@ class BarChartDataModel {
         return 'Sat';
       default:
         return '';
+    }
+  }
+
+  /// returns int from day name
+  int daysNumber(String day) {
+    switch (day) {
+      case 'Sun':
+        return 0;
+      case 'Mon':
+        return 1;
+      case 'Tue':
+        return 2;
+      case 'Wed':
+        return 3;
+      case 'Thu':
+        return 4;
+      case 'Fri':
+        return 5;
+      case 'Sat':
+        return 6;
+      default:
+        return 0;
     }
   }
 }
