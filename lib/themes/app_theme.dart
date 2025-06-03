@@ -28,24 +28,42 @@ class AppTheme {
   /// Dark theme
   static get darkTheme => ThemeData(
     brightness: Brightness.dark,
-    scaffoldBackgroundColor: Color(0xFF121212), // Deep Charcoal
-    primaryColor: Color(0xFF4A90E2), // Soft Blue
+    scaffoldBackgroundColor: const Color(0xFF1C1C1E), // Soft charcoal
+    canvasColor: const Color(0xFF2C2C2E),
+    cardColor: const Color(0xFF2C2C2E),
+    dividerColor: Colors.grey.shade700,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Color(0xFF1C1C1E),
+      iconTheme: IconThemeData(color: Colors.white70),
+    ),
+    textTheme: TextTheme(
+      bodyLarge: const TextStyle(color: Colors.white70),
+      bodyMedium: const TextStyle(color: Colors.white60),
+      titleLarge: const TextStyle(color: Colors.white),
+      titleMedium: const TextStyle(color: Colors.white70),
+      labelLarge: TextStyle(color: Colors.tealAccent.shade100),
+    ),
+    iconTheme: const IconThemeData(color: Colors.white70),
     colorScheme: ColorScheme.dark(
       primary: Color(0xFF4A90E2),
       secondary: Color(0xFF3DDC97), // Mint Green
-      error: Color(0xFFFF6B6B), // Soft Red
-      background: Color(0xFF121212),
-      surface: Color(0xFF1E1E1E), // Dark Gray
+      surface: const Color(0xFF2C2C2E),
+      background: const Color(0xFF1C1C1E),
+      onPrimary: Colors.black,
+      onSurface: Colors.white,
     ),
-    cardColor: Color(0xFF1E1E1E),
-    textTheme: TextTheme(
-      bodyLarge: TextStyle(color: Color(0xFFE0E0E0)), // Light Gray
-      bodyMedium: TextStyle(color: Color(0xFFA0A0A0)), // Medium Gray
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: const Color(0xFF3A3A3C),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide.none,
+      ),
+      hintStyle: TextStyle(color: Colors.white54),
     ),
-    appBarTheme: AppBarTheme(
-      backgroundColor: Color(0xFF121212),
-      foregroundColor: Color(0xFFE0E0E0),
-      elevation: 0,
+    buttonTheme: ButtonThemeData(
+      buttonColor: Colors.tealAccent.shade200,
+      textTheme: ButtonTextTheme.primary,
     ),
   );
 }
