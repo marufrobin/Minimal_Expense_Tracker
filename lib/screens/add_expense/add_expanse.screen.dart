@@ -175,12 +175,7 @@ class _ExpenseModalSheetState extends State<ExpenseModalSheet> {
                 decoration: InputDecoration(
                   labelText: 'Title',
                   hintText: 'Enter expense title',
-                  labelStyle: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurface,
-                  ),
-                  hintStyle: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
-                  ),
+                  labelStyle: theme.textTheme.bodyMedium,
                   prefixIcon: const Icon(Icons.title, color: Colors.blue),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),

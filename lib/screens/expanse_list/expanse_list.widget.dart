@@ -18,6 +18,7 @@ class ExpanseListWidget extends StatelessWidget {
         return ListView.builder(
           itemCount: state is ExpenseLoaded ? state.expenses.length : 1,
           shrinkWrap: true,
+          reverse: true,
           itemBuilder: (context, index) {
             if (state is ExpenseLoaded) {
               final expenses = state.expenses;
