@@ -161,7 +161,7 @@ class BarChartDataModel {
 
   /// returns int from day name
   int daysNumber(String day) {
-    switch (day) {
+    switch (day.toLowerCase()) {
       case 'sun':
         return 0;
       case 'mon':

@@ -29,7 +29,9 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => ThemeChangeCubit()),
           BlocProvider(
-            create: (context) => ExpanseBloc(context.read<ExpenseRepository>()),
+            create: (context) =>
+                ExpanseBloc(context.read<ExpenseRepository>())
+                  ..add(LoadExpensesEvent()),
           ),
         ],
         child: BlocBuilder<ThemeChangeCubit, ThemeMode>(
