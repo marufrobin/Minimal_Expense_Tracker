@@ -75,9 +75,11 @@ This Flutter project demonstrates how to:
 ---
 
 ## 📸 Preview
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/6ff010ac-26c1-49f5-83fe-e03a5ce60898" alt="Project Screenshot" width="600"/>
-</div>
+
+| Image 1 | Image 2 | Image 3 |
+|--------|--------|--------|
+| <img src="https://github.com/user-attachments/assets/6ff010ac-26c1-49f5-83fe-e03a5ce60898" width="150"/> | "" | "" |
+| Caption 1 | Caption 2 | Caption 3 |
 
 
 ---
