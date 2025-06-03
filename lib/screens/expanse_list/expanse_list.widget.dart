@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -14,13 +16,19 @@ class ExpanseListWidget extends StatelessWidget {
     return BlocBuilder<ExpanseBloc, ExpanseState>(
       builder: (context, state) {
         return ListView.builder(
-          itemCount: state is ExpenseLoaded ? state.expenses.length : 1,
+          itemCount: state is ExpenseLoaded || state is ExpenseOperationSuccess
+              ? (state is ExpenseLoaded
+                        ? state.expenses
+                        : (state as ExpenseOperationSuccess).expenses)
+                    .length
+              : 1,
           shrinkWrap: true,
           itemBuilder: (context, index) {
             if (state is ExpenseLoaded || state is ExpenseOperationSuccess) {
               final expenses = state is ExpenseLoaded
                   ? state.expenses
                   : (state as ExpenseOperationSuccess).expenses;
+              log(name: 'ExpanseListWidget', expenses.length.toString());
 
               return _body(
                 color: color,

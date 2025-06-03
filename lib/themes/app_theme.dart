@@ -21,7 +21,6 @@ class AppTheme {
     appBarTheme: AppBarTheme(
       backgroundColor: Color(0xFFFAFAFA),
       foregroundColor: Color(0xFF2D2D2D),
-      elevation: 0,
     ),
   );
 
