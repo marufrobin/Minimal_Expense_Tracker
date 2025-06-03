@@ -16,20 +16,11 @@ class ExpanseListWidget extends StatelessWidget {
     return BlocBuilder<ExpanseBloc, ExpanseState>(
       builder: (context, state) {
         return ListView.builder(
-          itemCount: state is ExpenseLoaded || state is ExpenseOperationSuccess
-              ? (state is ExpenseLoaded
-                        ? state.expenses
-                        : (state as ExpenseOperationSuccess).expenses)
-                    .length
-              : 1,
+          itemCount: state is ExpenseLoaded ? state.expenses.length : 1,
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            if (state is ExpenseLoaded || state is ExpenseOperationSuccess) {
-              final expenses = state is ExpenseLoaded
-                  ? state.expenses
-                  : (state as ExpenseOperationSuccess).expenses;
-              log(name: 'ExpanseListWidget', expenses.length.toString());
-
+            if (state is ExpenseLoaded) {
+              final expenses = state.expenses;
               return _body(
                 color: color,
                 id: expenses[index].id,

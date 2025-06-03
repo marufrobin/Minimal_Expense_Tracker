@@ -31,7 +31,7 @@ class ExpanseBloc extends Bloc<ExpanseEvent, ExpanseState> {
     try {
       await repository.createExpense(event.expense);
       final expanse = await repository.getAllExpenses();
-      emit(ExpenseOperationSuccess('Expense created', expanse));
+      emit(ExpenseLoaded(expanse));
     } catch (e) {
       emit(ExpenseError(e.toString()));
     }
@@ -43,7 +43,7 @@ class ExpanseBloc extends Bloc<ExpanseEvent, ExpanseState> {
       await repository.updateExpense(event.id, event.expense);
       final expanse = await repository.getAllExpenses();
 
-      emit(ExpenseOperationSuccess('Expense updated', expanse));
+      emit(ExpenseLoaded(expanse));
     } catch (e) {
       emit(ExpenseError(e.toString()));
     }
@@ -55,7 +55,7 @@ class ExpanseBloc extends Bloc<ExpanseEvent, ExpanseState> {
       await repository.deleteExpense(event.id);
       final expanse = await repository.getAllExpenses();
 
-      emit(ExpenseOperationSuccess('Expense deleted', expanse));
+      emit(ExpenseLoaded(expanse));
     } catch (e) {
       emit(ExpenseError(e.toString()));
     }

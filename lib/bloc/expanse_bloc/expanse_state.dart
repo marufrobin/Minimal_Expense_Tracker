@@ -24,10 +24,10 @@ class ExpenseError extends ExpanseState {
   List<Object?> get props => [message];
 }
 
-class ExpenseOperationSuccess extends ExpanseState {
-  final String message;
-  final List<Expanse> expenses;
-  const ExpenseOperationSuccess(this.message, this.expenses);
-  @override
-  List<Object?> get props => [message, expenses];
-}
+// class ExpenseOperationSuccess extends ExpanseState {
+//   final String message;
+//   final List<Expanse> expenses;
+//   const ExpenseOperationSuccess(this.message, this.expenses);
+//   @override
+//   List<Object?> get props => [message, expenses];
+// }
