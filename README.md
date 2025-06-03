@@ -34,7 +34,6 @@ This Flutter project demonstrates how to:
 * Use a simple `BarChartDataModel`.
 * Keep the UI responsive and theme-aware (light/dark mode).
 * Build a clean UI as a foundation for future enhancements like BLoC-driven dynamic data or backend integration.
-![Image](https://github.com/user-attachments/assets/6ff010ac-26c1-49f5-83fe-e03a5ce60898)
 ---
 
 ## 🚀 Getting Started
@@ -76,8 +75,10 @@ This Flutter project demonstrates how to:
 ---
 
 ## 📸 Preview
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/6ff010ac-26c1-49f5-83fe-e03a5ce60898" alt="Project Screenshot" width="600"/>
+</div>
 
-> 📌 Add a screenshot or screen recording here to showcase your chart.
 
 ---
 
