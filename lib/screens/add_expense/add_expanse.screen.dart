@@ -48,7 +48,6 @@ class ExpenseModalSheet extends StatefulWidget {
   final String? initialTitle;
   final double? initialAmount;
   final String? initialDay;
-
   const ExpenseModalSheet({
     super.key,
     required this.onSave,
@@ -106,8 +105,9 @@ class _ExpenseModalSheetState extends State<ExpenseModalSheet> {
 
       final amount = double.tryParse(_amountController.text) ?? 0.0;
       widget.onSave(_titleController.text.trim(), amount, _selectedDay);
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
     }
+    Navigator.of(context).pop();
   }
 
   @override

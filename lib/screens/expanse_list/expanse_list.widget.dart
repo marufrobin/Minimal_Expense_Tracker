@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../bloc/expanse_bloc/expanse_bloc.dart';
+import '../../models/expanse.model.dart';
+import '../add_expense/add_expanse.screen.dart';
 
 class ExpanseListWidget extends StatelessWidget {
   const ExpanseListWidget({super.key});
@@ -23,10 +25,11 @@ class ExpanseListWidget extends StatelessWidget {
             if (state is ExpenseLoaded) {
               final expenses = state.expenses;
               return _body(
+                parentContext: context,
                 color: color,
                 id: expenses[index].id,
                 title: expenses[index].name,
-                trailing: expenses[index].amount?.toDouble().toStringAsFixed(1),
+                amount: expenses[index].amount,
                 subtitle: expenses[index].dayName,
                 theme: theme,
               );
@@ -44,11 +47,12 @@ class ExpanseListWidget extends StatelessWidget {
   }
 
   Slidable _body({
+    required BuildContext parentContext,
     required ColorScheme color,
     required int id,
     required String? title,
     required String? subtitle,
-    required String? trailing,
+    required double? amount,
     required ThemeData theme,
   }) {
     return Slidable(
@@ -59,17 +63,44 @@ class ExpanseListWidget extends StatelessWidget {
             onPressed: (context) {
               context.read<ExpanseBloc>().add(DeleteExpenseEvent(id));
             },
-            backgroundColor: color.onSurface.withValues(alpha: 0.1),
-            foregroundColor: color.onSurface,
-            borderRadius: BorderRadius.circular(8),
-            icon: Icons.delete,
-          ),
-          SlidableAction(
-            onPressed: (context) {},
             backgroundColor: color.error,
             foregroundColor: color.onSurface,
             borderRadius: BorderRadius.circular(8),
+            icon: Icons.delete,
+            spacing: 16,
+          ),
+          SlidableAction(
+            onPressed: (context) {
+              showExpenseModal(
+                parentContext,
+                initialAmount: amount,
+                initialTitle: title,
+                initialDay: subtitle,
+                onSave: (title, amount, day) {
+                  // You can integrate with your BLoC here:
+                  parentContext.read<ExpanseBloc>().add(
+                    UpdateExpenseEvent(
+                      id,
+                      Expanse(name: title, amount: amount, dayName: day),
+                    ),
+                  );
+
+                  ScaffoldMessenger.of(parentContext).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Updated: $title - \$${amount.toStringAsFixed(2)} on $day',
+                      ),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                },
+              );
+            },
+            backgroundColor: color.onSurface.withValues(alpha: 0.1),
+            foregroundColor: color.onSurface,
+            borderRadius: BorderRadius.circular(8),
             icon: Icons.settings,
+            spacing: 16,
           ),
         ],
       ),
@@ -84,7 +115,7 @@ class ExpanseListWidget extends StatelessWidget {
         title: Text(title ?? "No data", style: theme.textTheme.titleMedium),
         subtitle: Text(subtitle ?? "No data", style: theme.textTheme.bodySmall),
         trailing: Text(
-          "\$${trailing ?? "No data"}",
+          "\$${amount?.toStringAsFixed(1) ?? "No data"}",
           style: theme.textTheme.titleSmall?.copyWith(
             fontWeight: FontWeight.bold,
           ),
